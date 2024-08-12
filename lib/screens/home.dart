@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:khabar/data/dummy_data.dart';
+import 'package:khabar/widgets/cdrawer.dart';
 import 'package:khabar/widgets/grid_item.dart';
 
 class Home extends StatelessWidget {
@@ -15,6 +16,7 @@ class Home extends StatelessWidget {
         ),
         backgroundColor: Colors.deepPurple,
       ),
+      drawer: Cdrawer(),
       body: GridView.count(
         padding: const EdgeInsets.all(10),
         crossAxisCount: 2,
