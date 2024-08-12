@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:khabar/data/dummy_data.dart'; // Ensure this imports the 'availableCategories' list
-import 'package:khabar/widgets/grid_item.dart'; // Ensure this imports the 'GridItem' widget
+import 'package:khabar/data/dummy_data.dart';
+import 'package:khabar/widgets/grid_item.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
