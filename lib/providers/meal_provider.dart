@@ -10,3 +10,20 @@ final mainCatagory = Provider<List<Category>>((ref) {
 final dMeals = Provider<List<Meal>>((ref) {
   return dummyMeals;
 });
+
+class FavouriteMealNotifer extends StateNotifier<List<Meal>> {
+  FavouriteMealNotifer() : super([]);
+
+  void addTofavourite(Meal meal) {
+    state = [...state, meal];
+  }
+
+  void removeFromFavourite(Meal meal) {
+    state = state.where((m) => m.id != meal.id).toList();
+  }
+}
+
+final mealProvider =
+    StateNotifierProvider<FavouriteMealNotifer, List<Meal>>((ref) {
+  return FavouriteMealNotifer();
+});

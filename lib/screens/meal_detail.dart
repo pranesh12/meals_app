@@ -1,25 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:khabar/models/meal.dart';
+import 'package:khabar/providers/meal_provider.dart';
+import 'package:khabar/screens/favourite_meal.dart';
 
-class MealDetail extends StatefulWidget {
+class MealDetail extends ConsumerStatefulWidget {
   const MealDetail({super.key, required this.meal});
   final Meal meal;
 
   @override
-  State<MealDetail> createState() => _MealDetailState();
+  _MealDetailState createState() => _MealDetailState();
 }
 
-class _MealDetailState extends State<MealDetail> {
+class _MealDetailState extends ConsumerState<MealDetail> {
   bool isSaved = false;
 
-  void handleToogle() {
+  void handleToggle(Meal meal) {
     setState(() {
       isSaved = !isSaved;
     });
 
+    if (isSaved) {
+      ref.read(mealProvider.notifier).addTofavourite(meal);
+    } else {
+      ref.read(mealProvider.notifier).removeFromFavourite(meal);
+    }
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(isSaved ? 'Meal saved!' : 'Meal unsaved!'),
+        action: SnackBarAction(
+            label: 'view',
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const FavouriteMeal()));
+            }),
         duration: const Duration(seconds: 1),
       ),
     );
@@ -32,7 +49,7 @@ class _MealDetailState extends State<MealDetail> {
         title: Text(widget.meal.title),
         actions: [
           IconButton(
-            onPressed: handleToogle,
+            onPressed: () => handleToggle(widget.meal),
             icon: isSaved
                 ? const Icon(Icons.star, color: Colors.amber)
                 : const Icon(Icons.star_border),
