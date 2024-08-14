@@ -15,7 +15,11 @@ class FavouriteMealNotifer extends StateNotifier<List<Meal>> {
   FavouriteMealNotifer() : super([]);
 
   void addTofavourite(Meal meal) {
-    state = [...state, meal];
+    if (state.contains(meal)) {
+      return;
+    } else {
+      state = [...state, meal];
+    }
   }
 
   void removeFromFavourite(Meal meal) {

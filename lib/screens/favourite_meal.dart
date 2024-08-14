@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:khabar/data/dummy_data.dart';
 import 'package:khabar/providers/meal_provider.dart';
 import 'package:khabar/screens/meal_detail.dart';
 

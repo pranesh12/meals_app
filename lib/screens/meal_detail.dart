@@ -18,13 +18,12 @@ class _MealDetailState extends ConsumerState<MealDetail> {
   void handleToggle(Meal meal) {
     setState(() {
       isSaved = !isSaved;
+      if (isSaved) {
+        ref.read(mealProvider.notifier).addTofavourite(meal);
+      } else {
+        ref.read(mealProvider.notifier).removeFromFavourite(meal);
+      }
     });
-
-    if (isSaved) {
-      ref.read(mealProvider.notifier).addTofavourite(meal);
-    } else {
-      ref.read(mealProvider.notifier).removeFromFavourite(meal);
-    }
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -37,7 +36,7 @@ class _MealDetailState extends ConsumerState<MealDetail> {
                   MaterialPageRoute(
                       builder: (context) => const FavouriteMeal()));
             }),
-        duration: const Duration(seconds: 1),
+        duration: const Duration(seconds: 3),
       ),
     );
   }
